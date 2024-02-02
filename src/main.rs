@@ -10,7 +10,7 @@ fn app() -> Html {
     let is_running = use_state(|| false);
     let images = use_state(Vec::new);
     let pos = use_state(|| 0);
-    let interv = use_state(|| 1200);
+    let interv = use_state(|| 1000);
     let timeout = use_mut_ref(|| None);
 
     let run_cb = {
@@ -47,6 +47,17 @@ fn app() -> Html {
         })
     };
 
+    let speed_cb = {
+        let interv = interv.clone();
+        let pos = pos.clone();
+        Callback::from(move |e: Event| {
+            let input: HtmlInputElement = e.target_unchecked_into();
+            let value = input.value_as_number();
+            interv.set(value as u32);
+            pos.set(*pos + 1);
+        })
+    };
+
     {
         let pos = pos.clone();
         let is_running = is_running.clone();
@@ -65,13 +76,27 @@ fn app() -> Html {
     html! {
         <div class="container">
             <div class="header">
+                <label class="files-select" for="files-upload">
+                    { "选择照片(多选)" }
+                </label>
                 <input
-                    id="file-upload"
+                    id="files-upload"
                     type="file"
                     accept="image/*"
                     multiple={true}
                     onchange={upload_cb}
                 />
+                <div class="speed-input">
+                    <span>{ "快" }</span>
+                    <input
+                        type="range"
+                        min={100}
+                        max={2000}
+                        value={interv.to_string()}
+                        onchange={speed_cb}
+                    />
+                    <span>{ "慢" }</span>
+                </div>
                 <button class="run-btn" onclick={run_cb}>
                     {
                         if *is_running { "停" } else { "转" }
@@ -81,7 +106,7 @@ fn app() -> Html {
             if !images.is_empty() {
                 <div class="images">
                 {
-                    (0..5).into_iter().map(|idx| {
+                    (0..4).into_iter().map(|idx| {
                         let url = images[(idx + *pos + images.len()) % images.len()].clone();
                         html! {
                             <div

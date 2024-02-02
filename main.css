@@ -1,3 +1,43 @@
+.container {
+  padding: 15px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.files-select {
+  cursor: pointer;
+  font-size: 24px;
+  padding: 20px 15px;
+  background: #e0e0e0;
+  border: 1px dashed #808080;
+  border-radius: 8px;
+}
+
+#files-upload {
+  display: none;
+}
+
+.speed-input input {
+  width: 600px;
+}
+
+.speed-input span {
+  font-size: 20px;
+  margin: 0 15px;
+}
+
+.run-btn {
+  width: 90px;
+  height: 90px;
+  background: red;
+  border-radius: 50%;
+  font-size: 30px;
+}
+
 .image-wapper {
   width: 600px;
   height: 600px;
@@ -51,15 +91,5 @@
 
   to {
     transform: rotate(0.05turn);
-  }
-}
-
-@keyframes img_4 {
-  from {
-    transform: rotate(0.15turn);
-  }
-
-  to {
-    transform: rotate(0.1turn);
   }
 }
