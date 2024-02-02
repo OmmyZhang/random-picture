@@ -1,0 +1,70 @@
+.image-wapper {
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  bottom: 200px;
+  left: calc(50% - 250px);
+  transform-origin: center 2900px;
+  display: flex;
+  flex-direction: column;
+  background: grey;
+}
+
+.image-wapper img {
+  max-width: 100%;
+  margin: auto auto 0;
+}
+
+@keyframes img_0 {
+  from {
+    transform: rotate(-0.05turn);
+  }
+
+  to {
+    transform: rotate(-0.1turn);
+  }
+}
+
+@keyframes img_1 {
+  from {
+    transform: rotate(0);
+    width: 800px;
+    left: calc(50% - 400px);
+  }
+
+  to {
+    transform: rotate(-0.05turn);
+  }
+}
+
+@keyframes img_2 {
+  from {
+    transform: rotate(0.05turn);
+  }
+
+  to {
+    transform: rotate(0);
+    width: 800px;
+    left: calc(50% - 400px);
+  }
+}
+
+@keyframes img_3 {
+  from {
+    transform: rotate(0.1turn);
+  }
+
+  to {
+    transform: rotate(0.05turn);
+  }
+}
+
+@keyframes img_4 {
+  from {
+    transform: rotate(0.15turn);
+  }
+
+  to {
+    transform: rotate(0.1turn);
+  }
+}
