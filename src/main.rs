@@ -1,7 +1,9 @@
+use gloo_timers::callback::Timeout;
 use web_sys::{Blob, Event, HtmlInputElement, Url};
 use yew::virtual_dom::AttrValue;
-use yew::{function_component, html, use_state, Callback, Html, TargetCast, use_effect_with, use_mut_ref};
-use gloo_timers::callback::Timeout;
+use yew::{
+    function_component, html, use_effect_with, use_mut_ref, use_state, Callback, Html, TargetCast,
+};
 
 #[function_component(App)]
 fn app() -> Html {
@@ -13,7 +15,16 @@ fn app() -> Html {
 
     let run_cb = {
         let is_running = is_running.clone();
-        Callback::from(move |_| is_running.set(!*is_running))
+        let pos = pos.clone();
+        let timeout = timeout.clone();
+        Callback::from(move |_| {
+            if *is_running {
+                *timeout.borrow_mut() = None;
+            } else {
+                pos.set(*pos + 1);
+            }
+            is_running.set(!*is_running);
+        })
     };
 
     let upload_cb = {
@@ -42,13 +53,11 @@ fn app() -> Html {
         let images = images.clone();
         let interv = interv.clone();
         let timeout = timeout.clone();
-        use_effect_with((*pos, *is_running), move|(_, is_running)| {
+        use_effect_with(*pos, move |_| {
             if *is_running && !images.is_empty() {
-                *timeout.borrow_mut() = Some(Timeout::new(*interv, move ||{
+                *timeout.borrow_mut() = Some(Timeout::new(*interv, move || {
                     pos.set((*pos + 1) % images.len());
                 }));
-            } else {
-                *timeout.borrow_mut() = None;
             }
         });
     }

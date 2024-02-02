@@ -1,13 +1,12 @@
 .image-wapper {
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   position: fixed;
   bottom: 200px;
-  left: calc(50% - 250px);
+  left: calc(50% - 300px);
   transform-origin: center 2900px;
   display: flex;
   flex-direction: column;
-  background: grey;
 }
 
 .image-wapper img {
@@ -28,8 +27,6 @@
 @keyframes img_1 {
   from {
     transform: rotate(0);
-    width: 800px;
-    left: calc(50% - 400px);
   }
 
   to {
@@ -44,8 +41,6 @@
 
   to {
     transform: rotate(0);
-    width: 800px;
-    left: calc(50% - 400px);
   }
 }
 
