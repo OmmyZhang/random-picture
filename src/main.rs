@@ -13,6 +13,8 @@ fn app() -> Html {
     let interv = use_state(|| 500);
     let timeout = use_mut_ref(|| None);
 
+    let background = use_state(|| None);
+
     let run_cb = {
         let is_running = is_running.clone();
         let pos = pos.clone();
@@ -47,6 +49,19 @@ fn app() -> Html {
         })
     };
 
+    let upload_bg_cb = {
+        let background = background.clone();
+        Callback::from(move |e: Event| {
+            let input: HtmlInputElement = e.target_unchecked_into();
+            if let Some(f) = input
+                .files()
+                .and_then(|fs| fs.item(0))
+                .map(|f| AttrValue::from(Url::create_object_url_with_blob(&f).unwrap()))
+            {
+                background.set(Some(f))
+            }
+        })
+    };
     let speed_cb = {
         let interv = interv.clone();
         let pos = pos.clone();
@@ -74,18 +89,36 @@ fn app() -> Html {
     }
 
     html! {
-        <div class="container">
+        <div
+            class="container"
+            style={
+                background.as_ref().map(|bg| {
+                    format!("background: center / cover no-repeat url('{}')", bg)
+                }).unwrap_or_default()
+            }
+        >
             <div class="header">
-                <label class="files-select" for="files-upload">
-                    { "选择照片(多选)" }
-                </label>
-                <input
-                    id="files-upload"
-                    type="file"
-                    accept="image/*"
-                    multiple={true}
-                    onchange={upload_cb}
-                />
+                <div class="uploads">
+                    <label class="files-select" for="files-upload">
+                        { "选择照片" }
+                    </label>
+                    <input
+                        id="files-upload"
+                        type="file"
+                        accept="image/*"
+                        multiple={true}
+                        onchange={upload_cb}
+                    />
+                    <label class="background-select" for="background-upload">
+                        { "选择背景" }
+                    </label>
+                    <input
+                        id="background-upload"
+                        type="file"
+                        accept="image/*"
+                        onchange={upload_bg_cb}
+                    />
+                </div>
                 <div class="speed-input">
                     <span>{ "快" }</span>
                     <input

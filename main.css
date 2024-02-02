@@ -1,8 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
-  padding: 15px;
+  height: 100vh;
 }
 
 .header {
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,8 +22,22 @@
   border: 1px dashed #808080;
   border-radius: 8px;
 }
+.background-select {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 8px;
+  background: #e0e0e0;
+  border: 1px dashed #808080;
+  border-radius: 4px;
+  margin: 13px auto 0;
+}
 
-#files-upload {
+.uploads {
+  display: flex;
+  flex-direction: column;
+}
+
+.uploads input {
   display: none;
 }
 
