@@ -10,7 +10,7 @@ fn app() -> Html {
     let is_running = use_state(|| false);
     let images = use_state(Vec::new);
     let pos = use_state(|| 0);
-    let interv = use_state(|| 1000);
+    let interv = use_state(|| 500);
     let timeout = use_mut_ref(|| None);
 
     let run_cb = {
@@ -103,7 +103,7 @@ fn app() -> Html {
                     }
                 </button>
             </div>
-            if !images.is_empty() {
+            if images.len() > 4 {
                 <div class="images">
                 {
                     (0..4).into_iter().map(|idx| {
@@ -125,6 +125,8 @@ fn app() -> Html {
                     }) .collect::<Html>()
                 }
                 </div>
+            } else {
+                <div class="empty-hint">{ "请选择至少四张照片" }</div>
             }
         </div>
     }

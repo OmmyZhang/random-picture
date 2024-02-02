@@ -38,6 +38,13 @@
   font-size: 30px;
 }
 
+.empty-hint {
+  font-size: 54px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 300px;
+}
+
 .image-wapper {
   width: 600px;
   height: 600px;
