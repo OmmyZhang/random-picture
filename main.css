@@ -41,6 +41,14 @@ body {
   display: none;
 }
 
+.footer {
+  position: fixed;
+  bottom: 40px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+}
+
 .speed-input input {
   width: 600px;
 }

@@ -119,6 +119,13 @@ fn app() -> Html {
                         onchange={upload_bg_cb}
                     />
                 </div>
+                <button class="run-btn" onclick={run_cb}>
+                    {
+                        if *is_running { "停" } else { "转" }
+                    }
+                </button>
+            </div>
+            <div class="footer">
                 <div class="speed-input">
                     <span>{ "快" }</span>
                     <input
@@ -130,11 +137,6 @@ fn app() -> Html {
                     />
                     <span>{ "慢" }</span>
                 </div>
-                <button class="run-btn" onclick={run_cb}>
-                    {
-                        if *is_running { "停" } else { "转" }
-                    }
-                </button>
             </div>
             if images.len() > 4 {
                 <div class="images">
